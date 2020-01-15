@@ -1,0 +1,42 @@
+body {
+    height: 100vh !important;
+    margin-top: 0;
+}
+
+.view_header {
+    font-weight: lighter;
+    font-size: 80px;
+    color: black;
+    text-align: center;
+    padding-top: 50px;
+    margin-bottom: 0;
+}
+
+.view_input {
+    display: inline-block;
+    font-weight: lighter;
+    font-size: 30px;
+    text-align: justify;
+    padding-top: 80px;
+    margin-top: 50px;
+    margin-left: 400px;
+    margin-bottom: 50px;
+    width: 40%;
+    color: black;
+    background-color: transparent;
+}
+
+.button {
+    margin-left: 650px;
+    width: 150px;
+    height: 50px;
+    border-color: black;
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+}
+
+.view_graph {
+    margin-left: 400px;
+    padding-top: 80px;
+}

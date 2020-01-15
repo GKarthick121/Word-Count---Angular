@@ -1,0 +1,13 @@
+<body>
+    <div class="view">
+        <h1 class=view_header>Word Count</h1>
+        <input class=view_input type="text" name="sentence" [(ngModel)]="name">
+
+        <button class="button near-moon-gradient z-depth-5" (click)="calculateWord(name)">Calculate</button>
+
+
+        <div class="view_graph" style="width:50%;">
+            <canvas id="myChart" width="700" height="250" #mychart></canvas>
+        </div>
+    </div>
+</body>

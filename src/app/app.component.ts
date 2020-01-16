@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,100 +8,71 @@ import { Chart } from 'chart.js';
 })
 
 export class AppComponent  {
-  name: string;
-  finalarray:string[];
+
+  inputtext:string;
   canvas: any;
   ctx: any;
-  finalvar:any;
+  clicked = false;
+  flag=false;
 
 
   @ViewChild('mychart',{static:false}) mychart;
 
-  ngAfterViewInit() {}
+  /* white space, unwanted words removed and new text
+    sent to count the words & result stored in final array */
+  calculateWord(){
 
-  calculateWord(text){
-    text = text.replace(/and|the|a|an/gi, "");
-    text = text.replace(/[ ]{2,}/gi," ");
-    text = text.replace (/(^\s*)|(\s*$)/gi,"");
+    let newText : string;
+    let resultarray  = '';
 
-    this.finalvar= this.Countword(text);
+    newText = this.inputtext.replace(/and|the|a|an/gi, "");
+    newText = this.inputtext.replace(/[ ]{2,}/gi,"");
+    newText = this.inputtext.replace (/(^\s*)|(\s*$)/gi,"");
 
-//call graph function with word array
+    resultarray = this.Countword(newText);
+    this.drawChart(resultarray);
 
-    this.graphit(this.finalvar);
   }
 
-  //function to draw graph
+// Draw chart with values from word count
+drawChart (resultarray){
 
-  graphit(finalvars){
+this.canvas = this.mychart.nativeElement;
+this.ctx = this.canvas.getContext('2d');
 
-    this.canvas = this.mychart.nativeElement;
-    this.ctx = this.canvas.getContext('2d');
-    let data = {
-      labels: [],
-        datasets: [{
-label:"Total words entered",
-            backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-              ],
-          borderColor:[
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 2,
-            data: []
-        }]
-    };
-    Chart.pluginService.register({
-      beforeInit: function(chart) {
-          let data = chart.config.data;
-          for (let key in finalvars) {
-              if (finalvars.hasOwnProperty(key)) {
-                data.labels.push(key);
-                  data.datasets[0].data.push(finalvars[key]);
-              }
+var gradientFill = this.ctx.createLinearGradient(0, 0, 0, 290);
+gradientFill.addColorStop(0, "rgba(173, 53, 186, 1)");
+gradientFill.addColorStop(1, "rgba(173, 53, 186, 0.1)");
+
+let data = {
+  labels: [],
+    datasets: [{
+      label:"Total words entered",
+        backgroundColor: gradientFill,
+      borderColor:'#AD35BA',
+          borderWidth: 2,
+        data: []
+    }]
+};
+Chart.pluginService.register({
+  beforeInit: function(chart) {
+      let data = chart.config.data;
+      for (let key in resultarray) {
+          if (resultarray.hasOwnProperty(key)) {
+            data.labels.push(key);
+              data.datasets[0].data.push(resultarray[key]);
           }
       }
-  });
-    let myChart = new Chart(this.ctx, {
-      type: 'bar',
-      data: data,
-      options: {scales: {yAxes: [{ticks: {beginAtZero:true}}]}
-      }});
   }
+});
+
+let myChart = new Chart(this.ctx, {
+  type: 'bar',
+  data: data,
+  options: {scales: {yAxes: [{ticks: {min: 0,
+    stepSize: 1}}]}
+  }});
+}
 
 
 //Count total words
@@ -115,8 +84,5 @@ label:"Total words entered",
       }, {});
 
 }
-
 }
-
-
 

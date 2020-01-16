@@ -26,14 +26,27 @@ body {
     background-color: transparent;
 }
 
-.button {
-    margin-left: 650px;
+.container_button--calculate {
     width: 150px;
     height: 50px;
     border-color: black;
     background-color: transparent;
     color: black;
     font-weight: bold;
+    margin: 15px;
+    margin-left: 500px;
+}
+
+.container_button--reset {
+    background-color: transparent;
+    color: black;
+    margin: 15px;
+    margin-left: 60px;
+    padding: 16px 58px;
+    text-align: center;
+    border: 5px;
+    text-decoration: none;
+    border: 1px solid black;
 }
 
 .view_graph {

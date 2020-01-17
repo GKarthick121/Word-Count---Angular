@@ -2,7 +2,7 @@
     <div class="view">
         <h1 class=view_header>Word Count</h1>
        <textarea class=view_input type="text" wrap="hard"  placeholder="Enter text" [(ngModel)]="inputtext"></textarea>
-       <button class="view_button--calculate"  (click)="calculateWord();">Calculate</button>
+       <button class="view_button--calculate"  [disabled]="clicked" (click)="calculateWord(); clicked=true; ">Calculate</button>
        <a class="view_button--reset" href=" ">Reset</a>
         <div class="view_graph" style="width:50%;">
             <canvas id="myChart" width="700" height="250" #mychart></canvas>

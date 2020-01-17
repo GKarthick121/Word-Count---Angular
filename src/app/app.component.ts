@@ -26,8 +26,8 @@ export class AppComponent  {
     let resultarray  = '';
 
     newText = this.inputtext.replace(/and|the|a|an/gi, "");
-    newText = newText.replace(/[ ]{2,}/gi,"");
-    newText = newText.replace (/(^\s*)|(\s*$)/gi,"");
+    newText = newText.replace (/[0-9]/gi,'');
+    newText = newText.replace(/^\s+|\s+$|\s+(?=\s)/g,"");
 
     resultarray = this.Countword(newText);
     this.drawChart(resultarray);

@@ -33,6 +33,17 @@ export class AppComponent  {
     this.drawChart(resultarray);
 
   }
+  
+
+//Count total words
+  
+Countword(text) {
+      return text.split(" ").reduce(function(count, word) {
+        count[word] = count.hasOwnProperty(word) ? count[word] + 1 : 1;
+        return count;
+      }, {});
+
+}
 
 // Draw chart with values from word count
 drawChart (resultarray){
@@ -74,15 +85,5 @@ let myChart = new Chart(this.ctx, {
   }});
 }
 
-
-//Count total words
-
-  Countword(text) {
-      return text.split(" ").reduce(function(count, word) {
-        count[word] = count.hasOwnProperty(word) ? count[word] + 1 : 1;
-        return count;
-      }, {});
-
-}
 }
 
